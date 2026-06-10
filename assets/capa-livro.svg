@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 504" width="360" height="504" role="img" aria-labelledby="capaTitulo">
+  <title id="capaTitulo">Capa do livro 365 Dias de Amor com Deus</title>
+  <defs>
+    <linearGradient id="ouroCapa" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8d49a"/>
+      <stop offset="35%" style="stop-color:#c9a227"/>
+      <stop offset="70%" style="stop-color:#a67c00"/>
+      <stop offset="100%" style="stop-color:#d4bc6a"/>
+    </linearGradient>
+    <linearGradient id="papelCapa" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fffdf8"/>
+      <stop offset="100%" style="stop-color:#f0ebe0"/>
+    </linearGradient>
+    <filter id="sombraLivro" x="-20%" y="-8%" width="140%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="14" flood-opacity="0.22"/>
+    </filter>
+    <filter id="sombraMiolo">
+      <feDropShadow dx="-6" dy="0" stdDeviation="3" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect x="48" y="36" width="22" height="432" rx="2" fill="#6b4c2a" filter="url(#sombraMiolo)"/>
+  <rect x="68" y="40" width="12" height="424" fill="url(#papelCapa)" opacity="0.95"/>
+  <rect x="78" y="28" width="248" height="448" rx="6" fill="url(#papelCapa)" filter="url(#sombraLivro)" stroke="url(#ouroCapa)" stroke-width="3"/>
+  <rect x="88" y="42" width="228" height="4" fill="url(#ouroCapa)" opacity="0.85"/>
+  <rect x="88" y="458" width="228" height="3" fill="url(#ouroCapa)" opacity="0.5"/>
+  <rect x="98" y="72" width="208" height="360" rx="2" fill="none" stroke="url(#ouroCapa)" stroke-width="1.5" opacity="0.55"/>
+  <text x="202" y="130" text-anchor="middle" font-family="Georgia, serif" font-size="52" font-weight="700" fill="#a67c00">365</text>
+  <text x="202" y="168" text-anchor="middle" font-family="Georgia, serif" font-size="13" letter-spacing="0.35em" fill="#7a6a52">DIAS DE</text>
+  <text x="202" y="218" text-anchor="middle" font-family="Georgia, serif" font-size="22" font-weight="700" letter-spacing="0.06em" fill="#1c1914">AMOR</text>
+  <text x="202" y="248" text-anchor="middle" font-family="Georgia, serif" font-size="22" font-style="italic" fill="#a67c00">com Deus</text>
+  <line x1="118" y1="278" x2="286" y2="278" stroke="#c9a227" stroke-width="1" opacity="0.6"/>
+  <text x="202" y="318" text-anchor="middle" font-family="Georgia, serif" font-size="11" letter-spacing="0.25em" fill="#8a7e6a">LIVRO VIRTUAL</text>
+  <text x="202" y="380" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#9a9080" font-style="italic">Um encontro por dia</text>
+</svg>

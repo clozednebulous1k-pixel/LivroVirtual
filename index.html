@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="365 Dias de Amor com Deus: devocional em PDF, imersão diária em palavra, silêncio e presença. Livro virtual para baixar." />
+  <title>365 Dias de Amor com Deus | Imersão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,200..900;1,9..144,200..900&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf8f4;
+      --bg-elev: #ffffff;
+      --bg-soft: #f3eee6;
+      --ink: #1c1914;
+      --ink-muted: #5c5346;
+      --gold: #a67c00;
+      --gold-bright: #c9a227;
+      --gold-pale: rgba(201, 162, 39, 0.12);
+      --border: rgba(166, 124, 0, 0.28);
+      --font-display: "Fraunces", Georgia, serif;
+      --font-body: "Literata", Georgia, serif;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.65;
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+
+    /* Textura leve sobre fundo claro */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      color: #8a6910;
+    }
+
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+    }
+    .skip:focus {
+      left: 1rem;
+      top: 1rem;
+      z-index: 100000;
+      padding: 0.75rem 1rem;
+      background: var(--bg-elev);
+      color: var(--ink);
+      outline: 2px solid var(--gold-bright);
+    }
+
+    /* Navegação lateral (capítulos) */
+    .chapter-rail {
+      position: fixed;
+      right: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    @media (min-width: 1100px) {
+      .chapter-rail {
+        display: flex;
+      }
+    }
+    .chapter-rail a {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold-pale);
+      border: 1px solid var(--border);
+      opacity: 0.65;
+      transition: transform 0.35s var(--ease-out), opacity 0.35s, background 0.35s;
+    }
+    .chapter-rail a:hover,
+    .chapter-rail a:focus-visible {
+      opacity: 1;
+      transform: scale(1.35);
+      outline: none;
+    }
+    .chapter-rail a.active {
+      background: var(--gold-bright);
+      border-color: var(--gold);
+      opacity: 1;
+      box-shadow: 0 0 0 3px var(--gold-pale);
+    }
+
+    /* Hero: capa + copy */
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2rem) clamp(4rem, 8vw, 5rem);
+      position: relative;
+      z-index: 1;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% -10%, rgba(201, 162, 39, 0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 100% 80%, rgba(166, 124, 0, 0.1) 0%, transparent 45%),
+        linear-gradient(180deg, #fffdf8 0%, var(--bg) 55%, #f5f0e8 100%);
+    }
+
+    .hero-grid {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(2rem, 5vw, 3.25rem);
+      align-items: center;
+      justify-items: center;
+      text-align: center;
+      animation: heroRise 1.2s var(--ease-out) both;
+    }
+
+    @keyframes heroRise {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 880px) {
+      .hero-grid {
+        grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+        justify-items: start;
+        text-align: left;
+        gap: clamp(2.5rem, 5vw, 4rem);
+      }
+    }
+
+    .hero-cover {
+      margin: 0;
+      position: relative;
+      flex-shrink: 0;
+      width: min(100%, 300px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.15rem;
+    }
+
+    .hero-cover-cta {
+      width: 100%;
+      max-width: min(100%, 280px);
+      text-align: center;
+      text-decoration: none;
+    }
+    .hero-cover-cta:hover {
+      text-decoration: none;
+    }
+
+    .hero-cover-img {
+      display: block;
+      width: 100%;
+      max-width: min(100%, 300px);
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+      filter: drop-shadow(0 22px 36px rgba(166, 124, 0, 0.28));
+      animation: heroFloat 5.5s ease-in-out infinite;
+    }
+
+    @media (max-width: 879px) {
+      .hero-cover {
+        width: 100%;
+        max-width: 260px;
+      }
+      .hero-cover-img {
+        max-width: 100%;
+        max-height: min(52vh, 420px);
+      }
+    }
+
+    @keyframes heroFloat {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .hero-copy {
+      max-width: 36rem;
+    }
+
+    @media (min-width: 880px) {
+      .hero-copy {
+        max-width: none;
+      }
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-display);
+      font-size: clamp(0.78rem, 1.5vw, 0.88rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-weight: 600;
+      line-height: 1.45;
+      animation: fadeDelay 0.9s 0.1s var(--ease-out) both;
+    }
+
+    @keyframes fadeDelay {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(2.1rem, 5.5vw, 3.35rem);
+      line-height: 1.08;
+      margin: 0 0 1rem;
+      font-optical-sizing: auto;
+      color: var(--ink);
+      text-wrap: balance;
+      animation: fadeDelay 0.9s 0.2s var(--ease-out) both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--gold-bright);
+    }
+
+    .hero-readers {
+      font-family: var(--font-display);
+      font-size: clamp(0.95rem, 1.9vw, 1.08rem);
+      font-weight: 500;
+      color: var(--ink-muted);
+      margin: -0.25rem 0 1.05rem;
+      line-height: 1.35;
+      animation: fadeDelay 0.9s 0.24s var(--ease-out) both;
+    }
+    .hero-readers strong {
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-hook {
+      font-family: var(--font-display);
+      font-size: clamp(1.05rem, 2.2vw, 1.22rem);
+      font-weight: 500;
+      color: var(--ink);
+      margin: 0 0 0.85rem;
+      line-height: 1.35;
+      animation: fadeDelay 0.9s 0.28s var(--ease-out) both;
+    }
+
+    .hero-lead {
+      font-size: clamp(0.98rem, 1.85vw, 1.08rem);
+      max-width: 42ch;
+      margin: 0 auto 1.15rem;
+      color: var(--ink-muted);
+      line-height: 1.62;
+      animation: fadeDelay 0.9s 0.36s var(--ease-out) both;
+    }
+
+    @media (min-width: 880px) {
+      .hero-lead {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    .hero-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+      text-align: left;
+      display: inline-block;
+      animation: fadeDelay 0.9s 0.44s var(--ease-out) both;
+    }
+
+    .hero-bullets li {
+      position: relative;
+      padding-left: 1.35rem;
+      margin-bottom: 0.45rem;
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      line-height: 1.45;
+    }
+
+    .hero-bullets li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-bright);
+      box-shadow: 0 0 0 2px var(--gold-pale);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem 1rem;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+      animation: fadeDelay 0.9s 0.52s var(--ease-out) both;
+    }
+
+    @media (min-width: 880px) {
+      .hero-cta {
+        justify-content: flex-start;
+      }
+    }
+
+    .hero-note {
+      font-size: 0.82rem;
+      color: #8a7e6a;
+      margin: 0;
+      letter-spacing: 0.04em;
+      animation: fadeDelay 0.9s 0.58s var(--ease-out) both;
+    }
+
+    .hero-note strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.95rem 1.85rem;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 550;
+      border-radius: 2px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s, background 0.3s, color 0.3s;
+    }
+    .btn:hover {
+      text-decoration: none;
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--gold-bright);
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(145deg, var(--gold-bright), var(--gold));
+      color: #1a160f;
+      border-color: rgba(255, 255, 255, 0.35);
+      box-shadow: 0 4px 24px rgba(201, 162, 39, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201, 162, 39, 0.45);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      background: var(--gold-pale);
+      border-color: var(--gold);
+    }
+
+    /* Botões: largura total no celular, área de toque confortável */
+    @media (max-width: 879px) {
+      .hero-cta,
+      #comprar .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 22rem;
+        margin-left: auto;
+        margin-right: auto;
+        gap: 0.65rem;
+      }
+      .hero-cta .btn,
+      #comprar .hero-cta .btn,
+      .hero-cover-cta {
+        width: 100%;
+        min-height: 48px;
+        padding: 0.9rem 1.25rem;
+        font-size: 1.02rem;
+      }
+    }
+
+    @media (min-width: 880px) {
+      #comprar .hero-cta {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.55;
+      animation: floatHint 3s ease-in-out infinite;
+    }
+    @keyframes floatHint {
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        transform: translateX(-50%) translateY(6px);
+      }
+    }
+
+    /* Seções genéricas */
+    section {
+      padding: clamp(4rem, 12vw, 7rem) clamp(1.5rem, 5vw, 3rem);
+      position: relative;
+    }
+
+    section[data-reveal] {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+    }
+    section[data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(1.85rem, 4vw, 2.75rem);
+      line-height: 1.2;
+      margin: 0 0 1.5rem;
+      max-width: 22ch;
+      color: var(--ink);
+    }
+
+    /* Capítulo: imersão */
+    #imersao {
+      background: linear-gradient(180deg, var(--bg-elev) 0%, var(--bg-soft) 50%, var(--bg-elev) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .imersao-grid {
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .imersao-copy p {
+      margin: 0 0 1.25rem;
+      color: var(--ink-muted);
+      max-width: 48ch;
+    }
+
+    .imersao-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .imersao-stats div {
+      text-align: center;
+    }
+    .imersao-stats strong {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 500;
+      color: var(--gold-bright);
+      display: block;
+      line-height: 1.1;
+    }
+    .imersao-stats span {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* O que você recebe */
+    #conteudo {
+      background: radial-gradient(ellipse 100% 55% at 50% 100%, rgba(201, 162, 39, 0.12) 0%, transparent 55%), var(--bg);
+    }
+
+    .content-list {
+      max-width: 40rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .content-list li {
+      position: relative;
+      padding: 1.15rem 0 1.15rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--ink);
+    }
+    .content-list li::before {
+      content: "";
+      position: absolute;
+      left: 0.35rem;
+      top: 1.35rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold-bright);
+      box-shadow: 0 0 0 2px var(--gold-pale);
+      opacity: 0.85;
+    }
+
+    /* Para quem é */
+    #para-quem {
+      background: var(--bg-soft);
+    }
+    .para-quem-inner {
+      max-width: 56rem;
+      margin: 0 auto;
+      display: grid;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .para-quem-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .para-card {
+      padding: 2rem;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-shadow: 0 8px 28px rgba(28, 25, 20, 0.04);
+    }
+    .para-card h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 1.25rem;
+      margin: 0 0 0.75rem;
+      color: var(--gold);
+    }
+    .para-card p {
+      margin: 0;
+      color: var(--ink-muted);
+      font-size: 0.98rem;
+    }
+
+    /* CTA final */
+    #comprar {
+      text-align: center;
+      padding: clamp(5rem, 14vw, 8rem) 1.5rem;
+      background: linear-gradient(180deg, var(--bg-elev) 0%, #fffdf8 100%);
+      border-top: 1px solid var(--border);
+    }
+    #comprar .section-title {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 22ch;
+    }
+
+    .comprar-readers {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2vw, 1.12rem);
+      font-weight: 500;
+      color: var(--ink-muted);
+      margin: 0 auto 1.25rem;
+      max-width: 28rem;
+      line-height: 1.4;
+    }
+    .comprar-readers strong {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .comprar-card {
+      max-width: 26rem;
+      margin: 2rem auto 0;
+      padding: 2rem 1.65rem 1.75rem;
+      text-align: center;
+      background: linear-gradient(165deg, #fffefb 0%, var(--bg-elev) 45%, #fffdf8 100%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.85) inset,
+        0 20px 48px rgba(166, 124, 0, 0.12),
+        0 4px 16px rgba(28, 25, 20, 0.06);
+      position: relative;
+    }
+    .comprar-card::before {
+      content: "";
+      position: absolute;
+      left: 1.25rem;
+      right: 1.25rem;
+      top: 0;
+      height: 3px;
+      border-radius: 0 0 4px 4px;
+      background: linear-gradient(90deg, transparent, var(--gold-bright), var(--gold), var(--gold-bright), transparent);
+      opacity: 0.85;
+    }
+
+    .comprar-card__tag {
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 600;
+      margin: 0.35rem 0 0.75rem;
+    }
+
+    .comprar-card__price {
+      font-family: var(--font-display);
+      font-size: clamp(2.35rem, 5vw, 3rem);
+      font-weight: 600;
+      color: var(--gold-bright);
+      margin: 0;
+      line-height: 1;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .comprar-card__pitch {
+      margin: 0.65rem 0 0;
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      line-height: 1.45;
+    }
+
+    .comprar-card__list {
+      list-style: none;
+      margin: 1.5rem 0 1.25rem;
+      padding: 1.15rem 0 0;
+      border-top: 1px solid var(--border);
+      text-align: left;
+    }
+    .comprar-card__list li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.92rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+    }
+    .comprar-card__list li:last-child {
+      margin-bottom: 0;
+    }
+    .comprar-card__list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.45em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold-bright);
+      box-shadow: 0 0 0 2px var(--gold-pale);
+    }
+    .comprar-card__list code {
+      font-size: 0.86em;
+      background: var(--gold-pale);
+      padding: 0.08em 0.32em;
+      border-radius: 4px;
+    }
+
+    .comprar-card__chat-hint {
+      margin: 0 0 1rem;
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+    }
+    .comprar-card__chat-hint strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .comprar-card .hero-cta {
+      margin-top: 0.25rem;
+      margin-bottom: 0;
+    }
+
+    .btn-chat {
+      gap: 0.5rem;
+    }
+    .btn-chat::before {
+      content: "💬";
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    @media (max-width: 879px) {
+      #comprar .comprar-card .hero-cta {
+        max-width: none;
+        width: 100%;
+      }
+    }
+
+    footer {
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--border);
+      background: var(--bg-soft);
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#imersao">Pular para o conteúdo</a>
+
+  <nav class="chapter-rail" aria-label="Navegação por seções">
+    <a href="#topo" data-section="topo" aria-label="Início"></a>
+    <a href="#imersao" data-section="imersao" aria-label="Imersão"></a>
+    <a href="#conteudo" data-section="conteudo" aria-label="Conteúdo"></a>
+    <a href="#para-quem" data-section="para-quem" aria-label="Para quem"></a>
+    <a href="#comprar" data-section="comprar" aria-label="Comprar"></a>
+  </nav>
+
+  <header class="hero" id="topo">
+    <div class="hero-grid">
+      <figure class="hero-cover">
+        <img
+          class="hero-cover-img"
+          src="assets/capa-hero-foto.png"
+          width="235"
+          height="312"
+          alt="Foto do livro 365 Dias de Amor com Deus"
+          loading="eager"
+          decoding="async"
+          onerror="this.onerror=null;this.src='assets/capa-livro.svg';"
+        />
+        <a class="btn btn-primary hero-cover-cta" href="#comprar">Quero meu exemplar</a>
+      </figure>
+      <div class="hero-copy">
+        <p class="hero-eyebrow">
+          Quando a rotina empurra Deus para depois, e o coração sente falta dEle
+        </p>
+        <h1>365 dias de amor <em>com Deus</em></h1>
+        <p class="hero-readers"><strong>+5.300</strong> leitores transformados</p>
+        <p class="hero-hook">Você não precisa de mais uma lista de culpa. Precisa de um lugar seguro para voltar, todo dia, sem vergonha.</p>
+        <p class="hero-lead">
+          Este livro virtual é a sua imersão: <strong>um ano inteiro</strong> de encontros curtos com a Palavra, com silêncio e com perguntas que abrem o peito. É como ter um amigo espiritual no bolso: no trânsito, antes de dormir, no café da manhã, te lembrando que <em>Ele ainda está aqui</em>.
+        </p>
+        <p class="hero-lead">
+          Sem pressa de “acabar o plano”. Com ternura de quem recomeça. Com formato de <strong>livro de verdade</strong> na tela, para você sentir que está folheando presença, não consumindo mais um post.
+        </p>
+        <ul class="hero-bullets">
+          <li>365 dias: estrutura pronta; você só abre o dia e deixa Deus falar.</li>
+          <li>Texto acolhedor, para quem está cansado de performance religiosa.</li>
+          <li>PDF para baixar e ler offline: seu ano com Ele, no seu ritmo.</li>
+        </ul>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="entrega/365-Dias-de-Amor-com-Deus.pdf" download="365-Dias-de-Amor-com-Deus.pdf">Baixar livro completo (PDF)</a>
+          <a class="btn btn-ghost" href="#comprar">Comprar / apoio</a>
+        </div>
+        <p class="hero-note"><strong>Livro completo em PDF</strong>: introdução + 365 dias; leia no celular, tablet ou computador, online ou offline após baixar</p>
+      </div>
+    </div>
+    <p class="scroll-hint" aria-hidden="true">Desça, conheça</p>
+  </header>
+
+  <section id="imersao" data-reveal>
+    <div class="imersao-grid">
+      <div class="imersao-copy">
+        <p class="section-label">Capítulo I</p>
+        <h2 class="section-title">Um livro que se vive, dia após dia</h2>
+        <p>
+          A ideia é simples e profunda: <strong>um convite por dia</strong>, leitura guiada, uma pergunta para conversar com Deus (e consigo), e um espaço para anotar o que Ele colocou no seu coração. Sem pressa de “terminar o livro”: o ritmo é o calendário da sua vida.
+        </p>
+        <p>
+          O formato virtual permite levar isso no bolso: manhã, intervalo, antes de dormir. A imersão acontece quando <em>constância encontra ternura</em>: pequenos passos, grandes mudanças de clima interior.
+        </p>
+        <div class="imersao-stats" role="group" aria-label="Resumo da jornada">
+          <div>
+            <strong>365</strong>
+            <span>dias</span>
+          </div>
+          <div>
+            <strong>1</strong>
+            <span>encontro por dia</span>
+          </div>
+          <div>
+            <strong>∞</strong>
+            <span>recomeços</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="conteudo" data-reveal>
+    <p class="section-label">Capítulo II</p>
+    <h2 class="section-title">O que vem no livro virtual</h2>
+    <ul class="content-list">
+      <li>365 entradas estruturadas (leitura + meditação + pergunta do dia)</li>
+      <li>Ritmo pensado para quem tem pouco tempo, mas quer profundidade</li>
+      <li>Linguagem acolhedora, sem jargão desnecessário, em tom de conversa íntima com Deus</li>
+          <li>O arquivo <code>365-Dias-de-Amor-com-Deus.pdf</code> traz a <strong>introdução completa</strong> e os <strong>365 dias</strong>. Baixe pelo botão no topo ou use o arquivo na pasta <code>entrega</code>.</li>
+      <li>Ideal para presentear a si mesmo ou alguém que deseja reatar o hábito da Palavra</li>
+    </ul>
+  </section>
+
+  <section id="para-quem" data-reveal>
+    <p class="section-label">Capítulo III</p>
+    <h2 class="section-title">Para quem é essa imersão</h2>
+    <div class="para-quem-inner">
+      <div class="para-card">
+        <h3>Quem quer constância sem culpa</h3>
+        <p>Se você já tentou planos de leitura “tudo ou nada”, aqui o convite é outro: um dia de cada vez, com graça.</p>
+      </div>
+      <div class="para-card">
+        <h3>Quem busca intimidade, não performance</h3>
+        <p>O foco não é acumular capítulos, mas cultivar um clima de amor e escuta no cotidiano.</p>
+      </div>
+      <div class="para-card">
+        <h3>Quem ama beleza e calma</h3>
+        <p>O site apresenta a obra; o PDF é onde a leitura vira imersão, página a página, em tom de conversa com Deus.</p>
+      </div>
+      <div class="para-card">
+        <h3>Quem pode presentear</h3>
+        <p>Um ano inteiro de companhia espiritual é um gesto que marca, especialmente em datas ou renascimentos de fé.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="comprar" data-reveal>
+    <p class="section-label">Última página deste site</p>
+    <h2 class="section-title">Pronto para viver os 365 dias?</h2>
+    <p class="comprar-readers"><strong>+5.300</strong> leitores transformados</p>
+
+    <div class="comprar-card">
+      <p class="comprar-card__tag">Livro virtual</p>
+      <p class="comprar-card__price">R$&nbsp;24,90</p>
+      <p class="comprar-card__pitch">Pagamento único · você recebe o <strong>PDF completo</strong> para baixar e guardar</p>
+
+      <ul class="comprar-card__list">
+        <li>Arquivo <code>365-Dias-de-Amor-com-Deus.pdf</code>: introdução + os <strong>365 dias</strong></li>
+        <li>Leia no celular, tablet ou computador; online ou offline após o download</li>
+        <li>Ideal para o seu ritmo: um encontro por dia, sem pressa de “terminar tudo”</li>
+      </ul>
+
+      <p class="comprar-card__chat-hint"><strong>Dúvidas?</strong> Fale com a gente no <strong>chat</strong> (WhatsApp) ou por e-mail: pagamento, acesso ao PDF ou qualquer detalhe do livro.</p>
+
+      <div class="hero-cta comprar-card__cta">
+        <a class="btn btn-primary btn-chat" href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20livro%20365%20Dias%20de%20Amor%20com%20Deus." rel="noopener noreferrer">Chat no WhatsApp</a>
+        <a class="btn btn-ghost" href="mailto:seu@email.com?subject=Quero%20comprar%20365%20Dias%20de%20Amor%20com%20Deus">Comprar por e-mail</a>
+        <a class="btn btn-ghost" href="entrega/365-Dias-de-Amor-com-Deus.pdf" download="365-Dias-de-Amor-com-Deus.pdf">Baixar PDF completo</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>365 Dias de Amor com Deus. Livro virtual. Textos e oferta são seus; personalize preços, links e depoimentos.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var sections = document.querySelectorAll("section[id], header[id]");
+      var railLinks = document.querySelectorAll(".chapter-rail a");
+      var reveal = document.querySelectorAll("[data-reveal]");
+
+      var obs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) e.target.classList.add("is-visible");
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+      );
+      reveal.forEach(function (el) {
+        obs.observe(el);
+      });
+
+      function setActiveRail() {
+        var mid = window.innerHeight * 0.35;
+        var current = "topo";
+        sections.forEach(function (sec) {
+          var r = sec.getBoundingClientRect();
+          if (r.top <= mid && r.bottom > mid) current = sec.id || current;
+        });
+        railLinks.forEach(function (a) {
+          a.classList.toggle("active", a.getAttribute("data-section") === current);
+        });
+      }
+      window.addEventListener("scroll", setActiveRail, { passive: true });
+      setActiveRail();
+    })();
+  </script>
+</body>
+</html>
