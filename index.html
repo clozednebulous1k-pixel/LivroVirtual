@@ -505,9 +505,22 @@
       color: var(--ink);
     }
 
-    /* Capítulo: imersão */
+    /* Capítulo: imersão — fundo com livro em coração + véu claro para leitura */
     #imersao {
-      background: linear-gradient(180deg, var(--bg-elev) 0%, var(--bg-soft) 50%, var(--bg-elev) 100%);
+      background-color: var(--bg-soft);
+      background-image:
+        linear-gradient(
+          180deg,
+          rgba(253, 249, 243, 0.9) 0%,
+          rgba(250, 246, 238, 0.82) 38%,
+          rgba(248, 242, 232, 0.86) 72%,
+          rgba(253, 249, 243, 0.92) 100%
+        ),
+        linear-gradient(180deg, rgba(28, 25, 20, 0.04) 0%, transparent 45%),
+        url("assets/imersao-fundo-livro-coracao.png");
+      background-size: cover;
+      background-position: center 40%;
+      background-repeat: no-repeat;
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
@@ -1070,13 +1083,18 @@
         <li>Ideal para o seu ritmo: um encontro por dia, sem pressa de “terminar tudo”</li>
       </ul>
 
-      <p class="comprar-card__gateway-hint"><strong>Pagamento</strong> será feito pela <strong>gateway</strong> que você configurar (link no botão abaixo). O PDF do ebook é liberado <strong>após a confirmação</strong> do pagamento.</p>
+      <p class="comprar-card__gateway-hint"><strong>Pagamento seguro</strong> pelo link abaixo (Fruitfy Pay). O PDF do ebook é liberado <strong>após a confirmação</strong> do pagamento.</p>
 
-      <p class="comprar-card__afterpay" role="note">Substitua o elemento <code>&lt;button id="lv-checkout"&gt;</code> por um link <code>&lt;a href="…"&gt;</code> da sua plataforma ou use o snippet que a gateway fornecer. O PDF <strong>não</strong> fica para download direto nesta página.</p>
+      <p class="comprar-card__afterpay" role="note">Após o pagamento confirmado na plataforma, você recebe o acesso ao PDF. O arquivo <strong>não</strong> é baixado diretamente nesta página.</p>
 
       <div class="hero-cta comprar-card__cta">
-        <!-- Quando tiver o link: troque este button por <a class="btn btn-primary" href="URL_DA_GATEWAY">…</a> -->
-        <button type="button" class="btn btn-primary lv-checkout-btn" id="lv-checkout">Comprar agora</button>
+        <a
+          class="btn btn-primary lv-checkout-btn"
+          id="lv-checkout"
+          href="https://go.fruitfypay.com/TyXWA9YrylRNZD8h"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Comprar agora</a>
       </div>
     </div>
   </section>
