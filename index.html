@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="365 Dias de Amor com Deus: devocional em PDF, imersão diária em palavra, silêncio e presença. Livro virtual para baixar." />
+  <meta name="description" content="365 Dias de Amor com Deus: devocional em PDF, imersão diária em palavra, silêncio e presença. Livro virtual — PDF liberado após a compra confirmada." />
   <title>365 Dias de Amor com Deus | Imersão</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,6 +22,7 @@
       --font-display: "Fraunces", Georgia, serif;
       --font-body: "Literata", Georgia, serif;
       --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --lv-card-radius: 14px;
     }
 
     *,
@@ -385,6 +386,10 @@
       text-decoration: none;
       transition: transform 0.3s var(--ease-out), box-shadow 0.3s, background 0.3s, color 0.3s;
     }
+    button.btn {
+      appearance: none;
+      -webkit-appearance: none;
+    }
     .btn:hover {
       text-decoration: none;
     }
@@ -526,10 +531,10 @@
       padding-top: 2rem;
       border-top: 1px solid var(--border);
     }
-    .imersao-stats div {
+    .imersao-stat {
       text-align: center;
     }
-    .imersao-stats strong {
+    .imersao-stat strong {
       font-family: var(--font-display);
       font-size: clamp(1.75rem, 4vw, 2.5rem);
       font-weight: 500;
@@ -537,10 +542,152 @@
       display: block;
       line-height: 1.1;
     }
-    .imersao-stats span {
+    .imersao-stat span {
       font-size: 0.8rem;
       color: var(--ink-muted);
       letter-spacing: 0.06em;
+    }
+
+    /* Borda dourada: orb radial percorre o retângulo do card (left/top % — offset-path com % usava o tamanho do orb e sumia) */
+    @keyframes lv-orbit-gold {
+      0% {
+        left: 6%;
+        top: 0;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      25% {
+        left: 94%;
+        top: 0;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      50% {
+        left: 94%;
+        top: 100%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      75% {
+        left: 6%;
+        top: 100%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      100% {
+        left: 6%;
+        top: 0;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
+    @keyframes lv-rail-shine {
+      0%,
+      100% {
+        opacity: 0.55;
+        transform: scaleX(0.92);
+      }
+      50% {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    .para-card,
+    .comprar-card,
+    .imersao-stat {
+      position: relative;
+      z-index: 0;
+      overflow: hidden;
+      isolation: isolate;
+      border-radius: var(--lv-card-radius);
+      border: none;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.78) inset,
+        0 1px 4px rgba(28, 25, 20, 0.05);
+    }
+
+    /* Camada 1: orb dourado que “corre” pelas quatro arestas do card (miolo coberto pelo ::after) */
+    .para-card::before,
+    .imersao-stat::before,
+    .comprar-card::before {
+      content: "";
+      position: absolute;
+      width: min(6.5rem, 42%);
+      height: min(6.5rem, 42%);
+      left: 6%;
+      top: 0;
+      box-sizing: border-box;
+      background: radial-gradient(
+        circle at 50% 50%,
+        rgba(255, 252, 238, 0.98) 0%,
+        var(--gold-bright) 22%,
+        rgba(212, 175, 55, 0.5) 48%,
+        rgba(166, 124, 0, 0.14) 66%,
+        transparent 74%
+      );
+      transform: translate(-50%, -50%) rotate(45deg);
+      animation: lv-orbit-gold 5s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Camada 2: “tampa” com o mesmo fundo do card, 2px menor — esconde o miolo, deixa só a bordinha */
+    .para-card::after,
+    .imersao-stat::after,
+    .comprar-card::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: calc(var(--lv-card-radius) - 2px);
+      box-sizing: border-box;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .para-card::after {
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-elev) 100%);
+    }
+
+    .imersao-stat::after {
+      background: linear-gradient(165deg, #fffefb 0%, var(--bg-elev) 55%, #fffdfb 100%);
+    }
+
+    .comprar-card::after {
+      background: linear-gradient(165deg, #fffefb 0%, var(--bg-elev) 45%, #fffdf8 100%);
+    }
+
+    .para-quem-inner .para-card:nth-child(2)::before,
+    .imersao-stats .imersao-stat:nth-child(2)::before {
+      animation-duration: 5.5s;
+      animation-delay: -1.2s;
+    }
+    .para-quem-inner .para-card:nth-child(3)::before,
+    .imersao-stats .imersao-stat:nth-child(3)::before {
+      animation-duration: 4.75s;
+      animation-delay: -2.4s;
+    }
+    .para-quem-inner .para-card:nth-child(4)::before {
+      animation-duration: 5.25s;
+      animation-delay: -3.5s;
+    }
+    .comprar-card::before {
+      animation-duration: 5.1s;
+      animation-delay: -1.8s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .para-card::before,
+      .imersao-stat::before,
+      .comprar-card::before,
+      .para-card::after,
+      .imersao-stat::after,
+      .comprar-card::after {
+        display: none !important;
+      }
+      .para-card,
+      .comprar-card,
+      .imersao-stat {
+        border: 1px solid rgba(201, 162, 39, 0.32);
+      }
+      .comprar-card__rail {
+        animation: none !important;
+      }
     }
 
     /* O que você recebe */
@@ -590,11 +737,23 @@
     }
     .para-card {
       padding: 2rem;
-      background: var(--bg-elev);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      box-shadow: 0 8px 28px rgba(28, 25, 20, 0.04);
+      background: linear-gradient(180deg, #ffffff 0%, var(--bg-elev) 100%);
+      border-radius: var(--lv-card-radius);
     }
+
+    .imersao-stat {
+      padding: 1.35rem 0.95rem;
+      background: linear-gradient(165deg, #fffefb 0%, var(--bg-elev) 55%, #fffdfb 100%);
+      border-radius: var(--lv-card-radius);
+    }
+
+    .para-card > *,
+    .imersao-stat > *,
+    .comprar-card > *:not(.comprar-card__rail) {
+      position: relative;
+      z-index: 5;
+    }
+
     .para-card h3 {
       font-family: var(--font-display);
       font-weight: 500;
@@ -641,16 +800,10 @@
       padding: 2rem 1.65rem 1.75rem;
       text-align: center;
       background: linear-gradient(165deg, #fffefb 0%, var(--bg-elev) 45%, #fffdf8 100%);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.85) inset,
-        0 20px 48px rgba(166, 124, 0, 0.12),
-        0 4px 16px rgba(28, 25, 20, 0.06);
-      position: relative;
     }
-    .comprar-card::before {
-      content: "";
+
+    .comprar-card__rail {
+      display: block;
       position: absolute;
       left: 1.25rem;
       right: 1.25rem;
@@ -658,7 +811,10 @@
       height: 3px;
       border-radius: 0 0 4px 4px;
       background: linear-gradient(90deg, transparent, var(--gold-bright), var(--gold), var(--gold-bright), transparent);
-      opacity: 0.85;
+      transform-origin: center top;
+      animation: lv-rail-shine 5.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 5;
     }
 
     .comprar-card__tag {
@@ -724,29 +880,31 @@
       border-radius: 4px;
     }
 
-    .comprar-card__chat-hint {
+    .comprar-card__gateway-hint {
       margin: 0 0 1rem;
       font-size: 0.88rem;
       color: var(--ink-muted);
       line-height: 1.5;
     }
-    .comprar-card__chat-hint strong {
+    .comprar-card__gateway-hint strong {
       color: var(--gold);
       font-weight: 600;
+    }
+
+    .comprar-card__afterpay {
+      margin: 0 0 1.15rem;
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.45;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      border: 1px dashed rgba(184, 134, 11, 0.45);
+      background: rgba(184, 134, 11, 0.06);
     }
 
     .comprar-card .hero-cta {
       margin-top: 0.25rem;
       margin-bottom: 0;
-    }
-
-    .btn-chat {
-      gap: 0.5rem;
-    }
-    .btn-chat::before {
-      content: "💬";
-      font-size: 1.05rem;
-      line-height: 1;
     }
 
     @media (max-width: 879px) {
@@ -808,13 +966,12 @@
         <ul class="hero-bullets">
           <li>365 dias: estrutura pronta; você só abre o dia e deixa Deus falar.</li>
           <li>Texto acolhedor, para quem está cansado de performance religiosa.</li>
-          <li>PDF para baixar e ler offline: seu ano com Ele, no seu ritmo.</li>
+          <li>PDF completo para baixar e ler offline — <strong>liberado só após a compra confirmada</strong>, no seu ritmo.</li>
         </ul>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="entrega/365-Dias-de-Amor-com-Deus.pdf" download="365-Dias-de-Amor-com-Deus.pdf">Baixar livro completo (PDF)</a>
-          <a class="btn btn-ghost" href="#comprar">Comprar / apoio</a>
+          <a class="btn btn-primary" href="#comprar">Comprar e receber o PDF</a>
         </div>
-        <p class="hero-note"><strong>Livro completo em PDF</strong>: introdução + 365 dias; leia no celular, tablet ou computador, online ou offline após baixar</p>
+        <p class="hero-note"><strong>Livro completo em PDF</strong> (introdução + 365 dias): após o pagamento confirmado na <strong>loja</strong>, você recebe o link ou o arquivo para baixar. Leia no celular, tablet ou computador, online ou offline.</p>
       </div>
     </div>
     <p class="scroll-hint" aria-hidden="true">Desça, conheça</p>
@@ -832,15 +989,15 @@
           O formato virtual permite levar isso no bolso: manhã, intervalo, antes de dormir. A imersão acontece quando <em>constância encontra ternura</em>: pequenos passos, grandes mudanças de clima interior.
         </p>
         <div class="imersao-stats" role="group" aria-label="Resumo da jornada">
-          <div>
+          <div class="imersao-stat">
             <strong>365</strong>
             <span>dias</span>
           </div>
-          <div>
+          <div class="imersao-stat">
             <strong>1</strong>
             <span>encontro por dia</span>
           </div>
-          <div>
+          <div class="imersao-stat">
             <strong>∞</strong>
             <span>recomeços</span>
           </div>
@@ -856,7 +1013,7 @@
       <li>365 entradas estruturadas (leitura + meditação + pergunta do dia)</li>
       <li>Ritmo pensado para quem tem pouco tempo, mas quer profundidade</li>
       <li>Linguagem acolhedora, sem jargão desnecessário, em tom de conversa íntima com Deus</li>
-          <li>O arquivo <code>365-Dias-de-Amor-com-Deus.pdf</code> traz a <strong>introdução completa</strong> e os <strong>365 dias</strong>. Baixe pelo botão no topo ou use o arquivo na pasta <code>entrega</code>.</li>
+          <li>O arquivo <code>365-Dias-de-Amor-com-Deus.pdf</code> traz a <strong>introdução completa</strong> e os <strong>365 dias</strong>. Ele <strong>não fica público no site</strong>: você recebe o link ou o arquivo após a compra confirmada.</li>
       <li>Ideal para presentear a si mesmo ou alguém que deseja reatar o hábito da Palavra</li>
     </ul>
   </section>
@@ -875,7 +1032,7 @@
       </div>
       <div class="para-card">
         <h3>Quem ama beleza e calma</h3>
-        <p>O site apresenta a obra; o PDF é onde a leitura vira imersão, página a página, em tom de conversa com Deus.</p>
+        <p>O site apresenta a obra; o PDF (enviado após a compra) é onde a leitura vira imersão, página a página, em tom de conversa com Deus.</p>
       </div>
       <div class="para-card">
         <h3>Quem pode presentear</h3>
@@ -890,22 +1047,24 @@
     <p class="comprar-readers"><strong>+5.300</strong> leitores transformados</p>
 
     <div class="comprar-card">
+      <span class="comprar-card__rail" aria-hidden="true"></span>
       <p class="comprar-card__tag">Livro virtual</p>
       <p class="comprar-card__price">R$&nbsp;24,90</p>
-      <p class="comprar-card__pitch">Pagamento único · você recebe o <strong>PDF completo</strong> para baixar e guardar</p>
+      <p class="comprar-card__pitch">Pagamento único · após a confirmação, liberamos o <strong>PDF completo</strong> para você baixar e guardar</p>
 
       <ul class="comprar-card__list">
         <li>Arquivo <code>365-Dias-de-Amor-com-Deus.pdf</code>: introdução + os <strong>365 dias</strong></li>
-        <li>Leia no celular, tablet ou computador; online ou offline após o download</li>
+        <li>Leia no celular, tablet ou computador; online ou offline assim que receber o arquivo</li>
         <li>Ideal para o seu ritmo: um encontro por dia, sem pressa de “terminar tudo”</li>
       </ul>
 
-      <p class="comprar-card__chat-hint"><strong>Dúvidas?</strong> Fale com a gente no <strong>chat</strong> (WhatsApp) ou por e-mail: pagamento, acesso ao PDF ou qualquer detalhe do livro.</p>
+      <p class="comprar-card__gateway-hint"><strong>Pagamento</strong> será feito pela <strong>gateway</strong> que você configurar (link no botão abaixo). O PDF do ebook é liberado <strong>após a confirmação</strong> do pagamento.</p>
+
+      <p class="comprar-card__afterpay" role="note">Substitua o elemento <code>&lt;button id="lv-checkout"&gt;</code> por um link <code>&lt;a href="…"&gt;</code> da sua plataforma ou use o snippet que a gateway fornecer. O PDF <strong>não</strong> fica para download direto nesta página.</p>
 
       <div class="hero-cta comprar-card__cta">
-        <a class="btn btn-primary btn-chat" href="https://wa.me/5500000000000?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20livro%20365%20Dias%20de%20Amor%20com%20Deus." rel="noopener noreferrer">Chat no WhatsApp</a>
-        <a class="btn btn-ghost" href="mailto:seu@email.com?subject=Quero%20comprar%20365%20Dias%20de%20Amor%20com%20Deus">Comprar por e-mail</a>
-        <a class="btn btn-ghost" href="entrega/365-Dias-de-Amor-com-Deus.pdf" download="365-Dias-de-Amor-com-Deus.pdf">Baixar PDF completo</a>
+        <!-- Quando tiver o link: troque este button por <a class="btn btn-primary" href="URL_DA_GATEWAY">…</a> -->
+        <button type="button" class="btn btn-primary lv-checkout-btn" id="lv-checkout">Comprar agora</button>
       </div>
     </div>
   </section>
