@@ -161,13 +161,60 @@
       padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2rem) clamp(4rem, 8vw, 5rem);
       position: relative;
       z-index: 1;
+      isolation: isolate;
       background:
         radial-gradient(ellipse 90% 70% at 50% -10%, rgba(201, 162, 39, 0.18) 0%, transparent 55%),
         radial-gradient(ellipse 60% 50% at 100% 80%, rgba(166, 124, 0, 0.1) 0%, transparent 45%),
         linear-gradient(180deg, #fffdf8 0%, var(--bg) 55%, #f5f0e8 100%);
     }
 
+    /* Grade dourada: linhas; máscara em degradê — forte no topo, some em direção a baixo */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 52px,
+          rgba(201, 162, 39, 0.38) 52px,
+          rgba(201, 162, 39, 0.38) 54px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 52px,
+          rgba(184, 134, 11, 0.32) 52px,
+          rgba(184, 134, 11, 0.32) 54px
+        );
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 12%,
+        rgba(0, 0, 0, 0.65) 38%,
+        rgba(0, 0, 0, 0.22) 62%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        #000 0%,
+        #000 12%,
+        rgba(0, 0, 0, 0.65) 38%,
+        rgba(0, 0, 0, 0.22) 62%,
+        transparent 100%
+      );
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
+
     .hero-grid {
+      position: relative;
+      z-index: 1;
       width: 100%;
       max-width: 1080px;
       margin: 0 auto;
@@ -193,7 +240,7 @@
 
     @media (min-width: 880px) {
       .hero-grid {
-        grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+        grid-template-columns: minmax(400px, min(58vw, 880px)) minmax(0, 1fr);
         justify-items: start;
         text-align: left;
         gap: clamp(2.5rem, 5vw, 4rem);
@@ -204,16 +251,17 @@
       margin: 0;
       position: relative;
       flex-shrink: 0;
-      width: min(100%, 300px);
+      width: min(100%, 880px);
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 1.15rem;
+      background: transparent;
     }
 
     .hero-cover-cta {
       width: 100%;
-      max-width: min(100%, 280px);
+      max-width: min(100%, 800px);
       text-align: center;
       text-decoration: none;
     }
@@ -224,9 +272,11 @@
     .hero-cover-img {
       display: block;
       width: 100%;
-      max-width: min(100%, 300px);
+      max-width: min(100%, 880px);
       height: auto;
       object-fit: contain;
+      /* Mate preto em volta do livro: some no fundo claro do hero */
+      mix-blend-mode: lighten;
       border-radius: 10px;
       filter: drop-shadow(0 22px 36px rgba(166, 124, 0, 0.28));
       animation: heroFloat 5.5s ease-in-out infinite;
@@ -235,11 +285,18 @@
     @media (max-width: 879px) {
       .hero-cover {
         width: 100%;
-        max-width: 260px;
+        max-width: 100%;
+        gap: 1.35rem;
       }
       .hero-cover-img {
-        max-width: 100%;
-        max-height: min(52vh, 420px);
+        width: auto;
+        max-width: min(calc(100vw - 12px), 920px);
+        max-height: min(78vh, 980px);
+        margin-inline: auto;
+      }
+      .hero-cover-cta {
+        max-width: min(100%, 22rem);
+        margin-top: 0.15rem;
       }
     }
 
@@ -482,6 +539,7 @@
       bottom: 2rem;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 1;
       font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -505,10 +563,16 @@
       position: relative;
     }
 
+    /* Entrada no scroll: some ao sair da área e reaparece ao voltar (subir ou descer) */
     section[data-reveal] {
       opacity: 0;
-      transform: translateY(36px);
-      transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+      transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
+    }
+    section[data-reveal]:not(.is-visible):not(.reveal-up) {
+      transform: translateY(2rem);
+    }
+    section[data-reveal]:not(.is-visible).reveal-up {
+      transform: translateY(-2rem);
     }
     section[data-reveal].is-visible {
       opacity: 1;
@@ -730,6 +794,11 @@
       .comprar-card__rail {
         animation: none !important;
       }
+      section[data-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
     }
 
     /* O que você recebe */
@@ -833,13 +902,69 @@
       font-size: 0.98rem;
     }
 
-    /* CTA final */
+    /* Bloco final: comprar + rodapé — um só degradê e uma só grade (máscara de baixo → cima) */
+    .lv-final-block {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--bg-elev) 0%, #fffdf8 40%, #f5efe4 75%, var(--bg-soft) 100%);
+    }
+
+    .lv-final-block::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 52px,
+          rgba(201, 162, 39, 0.38) 52px,
+          rgba(201, 162, 39, 0.38) 54px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 52px,
+          rgba(184, 134, 11, 0.32) 52px,
+          rgba(184, 134, 11, 0.32) 54px
+        );
+      -webkit-mask-image: linear-gradient(
+        to top,
+        #000 0%,
+        #000 12%,
+        rgba(0, 0, 0, 0.65) 38%,
+        rgba(0, 0, 0, 0.22) 62%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to top,
+        #000 0%,
+        #000 12%,
+        rgba(0, 0, 0, 0.65) 38%,
+        rgba(0, 0, 0, 0.22) 62%,
+        transparent 100%
+      );
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
+
+    .lv-final-block > * {
+      position: relative;
+      z-index: 1;
+    }
+
     #comprar {
       text-align: center;
       padding: clamp(5rem, 14vw, 8rem) 1.5rem;
-      background: linear-gradient(180deg, var(--bg-elev) 0%, #fffdf8 100%);
-      border-top: 1px solid var(--border);
+      background: transparent;
     }
+
     #comprar .section-title {
       margin-left: auto;
       margin-right: auto;
@@ -985,8 +1110,7 @@
       text-align: center;
       font-size: 0.85rem;
       color: var(--ink-muted);
-      border-top: 1px solid var(--border);
-      background: var(--bg-soft);
+      background: transparent;
     }
   </style>
 </head>
@@ -1006,10 +1130,10 @@
       <figure class="hero-cover">
         <img
           class="hero-cover-img"
-          src="assets/capa-hero-foto.png"
+          src="assets/capa-hero-livro.png"
           width="235"
           height="312"
-          alt="Foto do livro 365 Dias de Amor com Deus"
+          alt="Capa do devocional 365 Dias de Amor com Deus"
           loading="eager"
           decoding="async"
           onerror="this.onerror=null;this.src='assets/capa-livro.svg';"
@@ -1107,6 +1231,7 @@
     </div>
   </section>
 
+  <div class="lv-final-block">
   <section id="comprar" data-reveal>
     <p class="section-label">Última página deste site</p>
     <h2 class="section-title">Pronto para viver os 365 dias?</h2>
@@ -1143,20 +1268,39 @@
   <footer>
     <p>365 Dias de Amor com Deus. Livro virtual. Textos e oferta são seus; personalize preços, links e depoimentos.</p>
   </footer>
+  </div>
 
   <script>
     (function () {
       var sections = document.querySelectorAll("section[id], header[id]");
       var railLinks = document.querySelectorAll(".chapter-rail a");
       var reveal = document.querySelectorAll("[data-reveal]");
+      var lastScrollY = window.scrollY || 0;
+      var scrollDown = true;
+      window.addEventListener(
+        "scroll",
+        function () {
+          var y = window.scrollY || 0;
+          scrollDown = y >= lastScrollY;
+          lastScrollY = y;
+        },
+        { passive: true }
+      );
 
       var obs = new IntersectionObserver(
         function (entries) {
           entries.forEach(function (e) {
-            if (e.isIntersecting) e.target.classList.add("is-visible");
+            var t = e.target;
+            if (e.isIntersecting) {
+              if (scrollDown) t.classList.remove("reveal-up");
+              else t.classList.add("reveal-up");
+              t.classList.add("is-visible");
+            } else {
+              t.classList.remove("is-visible");
+            }
           });
         },
-        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        { threshold: 0.08, rootMargin: "0px 0px -10% 0px" }
       );
       reveal.forEach(function (el) {
         obs.observe(el);

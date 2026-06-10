@@ -2,3 +2,6 @@
 Thumbs.db
 desktop.ini
 *.log
+
+# SVG de capa muito pesado (~7 MB); o hero usa capa-hero-livro.png
+assets/capa-hero-livro.svg
