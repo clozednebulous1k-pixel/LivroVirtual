@@ -801,19 +801,155 @@
       }
     }
 
-    /* O que você recebe */
+    /* Capítulo II — página de pergaminho a tela cheia (sem moldura escura) */
     #conteudo {
-      background: radial-gradient(ellipse 100% 55% at 50% 100%, rgba(201, 162, 39, 0.12) 0%, transparent 55%), var(--bg);
+      --bible-ink: #2a2118;
+      --bible-sepia: #5c4528;
+      --bible-paper-mid: #e8dcc6;
+      --bible-paper-edge: #c9b89a;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+      background: transparent;
+      border: none;
+    }
+
+    #conteudo .lv-bible-page {
+      flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
+      max-width: none;
+      margin: 0;
+      padding: clamp(2.75rem, 8vw, 4rem) clamp(1.25rem, 5vw, 2.25rem) clamp(3rem, 10vw, 5rem);
+      font-family: "Crimson Text", Georgia, serif;
+      color: var(--bible-ink);
       text-align: center;
+      background:
+        radial-gradient(ellipse 95% 55% at 50% -5%, rgba(255, 252, 240, 0.45) 0%, transparent 52%),
+        radial-gradient(ellipse 80% 50% at 100% 100%, rgba(139, 90, 43, 0.08) 0%, transparent 45%),
+        radial-gradient(ellipse 70% 45% at 0% 80%, rgba(100, 72, 40, 0.06) 0%, transparent 42%),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 23px,
+          rgba(74, 55, 40, 0.04) 23px,
+          rgba(74, 55, 40, 0.04) 24px
+        ),
+        linear-gradient(175deg, #f6eedc 0%, var(--bible-paper-mid) 38%, #dccfaf 72%, var(--bible-paper-edge) 100%);
+      border: none;
+      outline: none;
+      box-shadow: inset 0 0 120px rgba(62, 48, 30, 0.08);
+    }
+
+    #conteudo .lv-bible-page::before {
+      content: "✦";
+      display: block;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      color: rgba(92, 69, 40, 0.4);
+      margin-bottom: 0.35rem;
+    }
+
+    #conteudo .section-label {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--bible-sepia);
+      margin-bottom: 0.85rem;
+      font-weight: 600;
     }
 
     #conteudo .section-title {
-      max-width: min(40rem, 100%);
-      margin-left: auto;
-      margin-right: auto;
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(1.55rem, 3.6vw, 2.15rem);
+      line-height: 1.28;
+      max-width: 20ch;
+      margin: 0 auto 1.75rem;
+      color: var(--bible-ink);
+      font-feature-settings: "liga" 1, "kern" 1;
+      padding-bottom: 1.1rem;
+      border-bottom: 1px solid rgba(92, 69, 40, 0.28);
+    }
+
+    #conteudo .content-list {
+      counter-reset: bible-verse;
+      text-align: left;
+      margin-top: 0.25rem;
+    }
+
+    #conteudo .content-list li {
+      counter-increment: bible-verse;
+      padding: 1.05rem 0.25rem 1.05rem 2.85rem;
+      border-bottom: 1px solid rgba(92, 69, 40, 0.18);
+      color: var(--bible-ink);
+      font-size: 1.08rem;
+      line-height: 1.72;
+      font-weight: 400;
+    }
+
+    #conteudo .content-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    #conteudo .content-list li::before {
+      content: counter(bible-verse);
+      position: absolute;
+      left: 0;
+      top: 1.15rem;
+      width: 1.85rem;
+      height: auto;
+      border-radius: 0;
+      background: none;
+      box-shadow: none;
+      opacity: 1;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(92, 69, 40, 0.5);
+      text-align: right;
+      line-height: 1.4;
+      font-variant-numeric: oldstyle-nums;
+    }
+
+    #conteudo .content-list strong {
+      font-weight: 700;
+      color: #1a1510;
+    }
+
+    #conteudo .content-list code {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.84em;
+      padding: 0.1em 0.32em;
+      border-radius: 3px;
+      background: rgba(92, 69, 40, 0.09);
+      border: 1px solid rgba(92, 69, 40, 0.22);
+      color: #241c14;
+    }
+
+    @media (max-width: 520px) {
+      #conteudo .lv-bible-page {
+        padding-left: 1.15rem;
+        padding-right: 1.15rem;
+      }
+      #conteudo .content-list li {
+        padding-left: 2.5rem;
+        font-size: 1.02rem;
+      }
+      #conteudo .content-list li::before {
+        width: 1.6rem;
+        font-size: 0.78rem;
+      }
     }
 
     .content-list {
@@ -1197,15 +1333,17 @@
   </section>
 
   <section id="conteudo" data-reveal>
-    <p class="section-label">Capítulo II</p>
-    <h2 class="section-title">O que vem no livro virtual</h2>
-    <ul class="content-list">
-      <li>365 entradas estruturadas (leitura + meditação + pergunta do dia)</li>
-      <li>Ritmo pensado para quem tem pouco tempo, mas quer profundidade</li>
-      <li>Linguagem acolhedora, sem jargão desnecessário, em tom de conversa íntima com Deus</li>
-          <li>O arquivo <code>365-Dias-de-Amor-com-Deus.pdf</code> traz a <strong>introdução completa</strong> e os <strong>365 dias</strong>. Ele <strong>não fica público no site</strong>: você recebe o link ou o arquivo após a compra confirmada.</li>
-      <li>Ideal para presentear a si mesmo ou alguém que deseja reatar o hábito da Palavra</li>
-    </ul>
+    <div class="lv-bible-page">
+      <p class="section-label">Capítulo II</p>
+      <h2 class="section-title">O que vem no livro virtual</h2>
+      <ul class="content-list">
+        <li>365 entradas estruturadas (leitura + meditação + pergunta do dia)</li>
+        <li>Ritmo pensado para quem tem pouco tempo, mas quer profundidade</li>
+        <li>Linguagem acolhedora, sem jargão desnecessário, em tom de conversa íntima com Deus</li>
+        <li>O arquivo <code>365-Dias-de-Amor-com-Deus.pdf</code> traz a <strong>introdução completa</strong> e os <strong>365 dias</strong>. Ele <strong>não fica público no site</strong>: você recebe o link ou o arquivo após a compra confirmada.</li>
+        <li>Ideal para presentear a si mesmo ou alguém que deseja reatar o hábito da Palavra</li>
+      </ul>
+    </div>
   </section>
 
   <section id="para-quem" data-reveal>
